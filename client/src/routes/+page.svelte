@@ -13,9 +13,16 @@
     // For more information on runes and reactivity, see: https://svelte.dev/docs/svelte/what-are-runes
     let meals: Meal[] = $state([]);
 
+    async function fetchMeals() {
+        const res = await fetch(`${baseUrl}/mensa-garching/today`)'
+        if (res.ok) {
+            meals = await res.json();
+        }
+    }
+
     // Fetch data once on component mount
     onMount(async () => {
-       // TODO Fetch meals from the API running on the baseUrl
+       await fetchMeals();
     });
 </script>
 
